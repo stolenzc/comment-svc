@@ -1,15 +1,7 @@
-import uuid as uuid_pkg
 from datetime import UTC, datetime
 
 from sqlalchemy import Boolean, DateTime, text
-from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
-
-
-class UUIDMixin:
-    uuid: Mapped[uuid_pkg.UUID] = mapped_column(
-        UUID, primary_key=True, default=uuid_pkg.uuid4, server_default=text("gen_random_uuid()")
-    )
 
 
 class TimestampMixin:

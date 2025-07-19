@@ -3,7 +3,7 @@ from typing import Annotated
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from ..core.schemas import PersistentDeletion, TimestampSchema, UUIDSchema
+from ..core.schemas import PersistentDeletion, TimestampSchema
 
 
 class PostBase(BaseModel):
@@ -11,7 +11,7 @@ class PostBase(BaseModel):
     text: Annotated[str, Field(min_length=1, max_length=63206, examples=["This is the content of my post."])]
 
 
-class Post(TimestampSchema, PostBase, UUIDSchema, PersistentDeletion):
+class Post(TimestampSchema, PostBase, PersistentDeletion):
     media_url: Annotated[
         str | None,
         Field(pattern=r"^(https?|ftp)://[^\s/$.?#].[^\s]*$", examples=["https://www.postimageurl.com"], default=None),
