@@ -2,6 +2,7 @@ from collections.abc import Callable, Generator
 from typing import Any
 from unittest.mock import AsyncMock, Mock
 
+import pymysql
 import pytest
 from faker import Faker
 from fastapi.testclient import TestClient
@@ -13,10 +14,9 @@ from sqlalchemy.orm.session import Session
 from src.app.core.config import settings
 from src.app.main import app
 
-DATABASE_URI = settings.POSTGRES_URI
-DATABASE_PREFIX = settings.POSTGRES_SYNC_PREFIX
+pymysql.install_as_MySQLdb()
 
-sync_engine = create_engine(DATABASE_PREFIX + DATABASE_URI)
+sync_engine = create_engine(settings.MYSQL_SYNC_PREFIX + settings.MYSQL_URI)
 local_session = sessionmaker(autocommit=False, autoflush=False, bind=sync_engine)
 
 
@@ -72,13 +72,11 @@ def sample_user_data():
 @pytest.fixture
 def sample_user_read():
     """Generate a sample UserRead object."""
-    import uuid
 
     from src.app.schemas.user import UserRead
 
     return UserRead(
         id=1,
-        uuid=uuid.uuid4(),
         name=fake.name(),
         username=fake.user_name(),
         email=fake.email(),

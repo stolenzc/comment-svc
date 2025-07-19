@@ -40,9 +40,9 @@ class MySQLSettings(DatabaseSettings):
     MYSQL_USER: str = config("MYSQL_USER", default="username")
     MYSQL_PASSWORD: str = config("MYSQL_PASSWORD", default="password")
     MYSQL_SERVER: str = config("MYSQL_SERVER", default="localhost")
-    MYSQL_PORT: int = config("MYSQL_PORT", default=5432)
-    MYSQL_DB: str = config("MYSQL_DB", default="dbname")
-    MYSQL_URI: str = f"{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_SERVER}:{MYSQL_PORT}/{MYSQL_DB}"
+    MYSQL_PORT: int = config("MYSQL_PORT", default=3306)
+    MYSQL_DATABASE: str = config("MYSQL_DATABASE", default="dbname")
+    MYSQL_URI: str = f"{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_SERVER}:{MYSQL_PORT}/{MYSQL_DATABASE}"
     MYSQL_SYNC_PREFIX: str = config("MYSQL_SYNC_PREFIX", default="mysql://")
     MYSQL_ASYNC_PREFIX: str = config("MYSQL_ASYNC_PREFIX", default="mysql+aiomysql://")
     MYSQL_URL: str | None = config("MYSQL_URL", default=None)
@@ -129,7 +129,8 @@ class EnvironmentSettings(BaseSettings):
 
 class Settings(
     AppSettings,
-    PostgresSettings,
+    # PostgresSettings,
+    MySQLSettings,
     CryptSettings,
     FirstUserSettings,
     TestSettings,
