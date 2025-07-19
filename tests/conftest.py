@@ -2,6 +2,7 @@ from collections.abc import Callable, Generator
 from typing import Any
 from unittest.mock import AsyncMock, Mock
 
+import pymysql
 import pytest
 from faker import Faker
 from fastapi.testclient import TestClient
@@ -13,10 +14,9 @@ from sqlalchemy.orm.session import Session
 from src.app.core.config import settings
 from src.app.main import app
 
-DATABASE_URI = settings.MYSQL_URI
-DATABASE_PREFIX = settings.MYSQL_SYNC_PREFIX
+pymysql.install_as_MySQLdb()
 
-sync_engine = create_engine(DATABASE_PREFIX + DATABASE_URI)
+sync_engine = create_engine(settings.MYSQL_SYNC_PREFIX + settings.MYSQL_URI)
 local_session = sessionmaker(autocommit=False, autoflush=False, bind=sync_engine)
 
 

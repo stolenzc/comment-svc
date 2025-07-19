@@ -6,10 +6,13 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 class TimestampMixin:
     created_at: Mapped[datetime] = mapped_column(
-        DateTime, default=datetime.now(UTC), server_default=text("current_timestamp(0)")
+        DateTime, default=datetime.now(UTC), server_default=text("CURRENT_TIMESTAMP")
     )
     updated_at: Mapped[datetime | None] = mapped_column(
-        DateTime, nullable=True, onupdate=datetime.now(UTC), server_default=text("current_timestamp(0)")
+        DateTime,
+        nullable=True,
+        onupdate=datetime.now(UTC),
+        server_default=text("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"),
     )
 
 
