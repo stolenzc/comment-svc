@@ -1,4 +1,4 @@
-<h1 align="center">Comment Service</h1>
+<h1 align="center">FastAPI-boilerplate</h1>
 
 ## Commit Guidelines
 
